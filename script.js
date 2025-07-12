@@ -1,23 +1,40 @@
-document.getElementById('sendBtn').addEventListener('click', () => {
+document.getElementById('sendBtn').addEventListener('click', async () => {
   const input = document.getElementById('chatInput');
+  const chatBox = document.getElementById('chatMessages');
   const message = input.value.trim();
-  if (message) {
-    const chatBox = document.getElementById('chatMessages');
-    const userMsg = document.createElement('div');
-    userMsg.textContent = "You: " + message;
-    chatBox.appendChild(userMsg);
-    input.value = "";
 
-    fetch('https://mstrak.app.n8n.cloud/webhook-test/chat', {
+  if (!message) return;
+
+  // Show user message
+  const userMsg = document.createElement('div');
+  userMsg.className = 'message user';
+  userMsg.textContent = "You: " + message;
+  chatBox.appendChild(userMsg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  input.value = "";
+
+  try {
+    const response = await fetch('https://your-n8n-webhook-url.com/webhook/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })
-    })
-    .then(response => response.json())
-    .then(data => {
-      const aiMsg = document.createElement('div');
-      aiMsg.textContent = "AYA: " + (data.reply || "Thank you, we will get back to you!");
-      chatBox.appendChild(aiMsg);
     });
+
+    const data = await response.json();
+
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'message ai';
+    aiMsg.textContent = "AYA: " + (data.reply || "Thank you! We will follow up soon.");
+    chatBox.appendChild(aiMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+  } catch (error) {
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'message error';
+    errorMsg.textContent = "Error: could not reach our team.";
+    chatBox.appendChild(errorMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    console.error("Chat fetch error:", error);
   }
 });
