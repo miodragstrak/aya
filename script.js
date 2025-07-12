@@ -8,7 +8,7 @@ document.getElementById('sendBtn').addEventListener('click', () => {
     chatBox.appendChild(userMsg);
     input.value = "";
 
-    fetch('https://your-n8n-webhook-url.com', {
+    fetch('https://mstrak.app.n8n.cloud/webhook-test/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })
