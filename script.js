@@ -15,7 +15,7 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
   input.value = "";
 
   try {
-    const response = await fetch('https://your-n8n-webhook-url.com/webhook/chat', {
+    const response = await fetch('https://mstrak.app.n8n.cloud/webhook-test/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })
