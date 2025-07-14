@@ -70,7 +70,7 @@
       sessionId = document.getElementById('sessionId').value.trim();
       if (!sessionId) return alert("Please enter session ID");
       try {
-        const res = await fetch('https://mstrak.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat', {
+        const res = await fetch('https://mstrak.app.n8n.cloud/webhook-test/join', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId, mode: "human" })
