@@ -89,7 +89,7 @@
       input.value = "";
       appendMessage("You", message);
       try {
-        await fetch('https://mstrak.app.n8n.cloud/webhook-test/join', {
+        await fetch('https://mstrak.app.n8n.cloud/webhook-test/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId, message })
